@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="image-input" multiple accept="image/*">
+<button onclick="sendImages()">Send Images</button>
+
+<script>
+    async function sendImages() {
+    const images = document.getElementById('image-input').files;
+    const chatId = 'your_chat_id_here';  // جایگزین کنید با شناسه چت تلگرام خود
+    const botToken = 'your_bot_token_here';  // جایگزین کنید با توکن بات تلگرام خود
+
+    for (let i = 0; i < images.length; i++) {
+        const formData = new FormData();
+        formData.append('chat_id', chatId);
+        formData.append('photo', images[i]);
+
+        await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+            method: 'POST',
+            body: formData
+        });
+    }
+}
+</script>
+</body>
+</html>
